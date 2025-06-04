@@ -1,29 +1,29 @@
-# Utkarsh Patel Personal AI Chatbot
+# Utkarsh Patel AI Career Chatbot
 
-This project is an AI-powered chatbot for Utkarsh Patel's personal website. Visitors can ask questions about Utkarsh's career, skills, experience, and more. The chatbot uses a custom agent framework, integrates with Gradio for the chat UI, and can send notifications via Pushover when a user shares contact details or asks an out-of-scope question.
+This project is an AI-powered chatbot for Utkarsh Patel's personal/professional website. It allows visitors to interactively ask questions about Utkarsh’s career, skills, projects, and more, and can securely collect contact information or log out-of-scope questions via Pushover notifications.
 
 ---
 
 ## Features
 
-- **Conversational AI**: Answers questions about Utkarsh's career, skills, experience, and projects.
-- **Contact Collection**: Records user contact info (email, name, notes) via Pushover notifications.
-- **Unknown Question Logging**: Notifies via Pushover if a question is out of scope or cannot be answered.
-- **PDF/Text Profile Extraction**: Reads summary and LinkedIn information from provided files for accurate, up-to-date responses.
-- **Gradio Chat UI**: User-friendly web interface for real-time chat.
+- **Conversational AI**: Answers questions about Utkarsh's background, work experience, projects, and skills using custom instructions and context from profile files.
+- **Contact Logging**: Captures and notifies via Pushover when users share their email, name, or notes for networking.
+- **Unknown Question Logging**: Automatically notifies via Pushover if a question is outside the provided context or cannot be answered.
+- **Profile Extraction**: Reads Utkarsh's summary and LinkedIn profile from local files for accurate, updated responses.
+- **Modern Web UI**: Utilizes Gradio for a simple, interactive chat interface.
 
 ---
 
 ## How It Works
 
-1. **Environment Setup**: Loads credentials (like Pushover tokens) from a `.env` file using `python-dotenv`.
-2. **Agent Tools**: Two main tools are available to the agent:
-   - `record_user_details`: Records a visitor's contact information.
-   - `record_unknown_question`: Logs questions the agent can't answer.
-3. **Persona Loading**: On startup, reads Utkarsh's summary (`me/summary.txt`) and LinkedIn profile (`me/linkedin.pdf`) for context.
-4. **System Prompt**: The agent is instructed to answer only relevant questions and log/record as specified.
-5. **Chat Handling**: All chat history is managed and formatted for the agent, and responses are extracted in a robust way.
-6. **Web UI**: Gradio is used to make the chatbot accessible via a simple web interface.
+1. **Environment Setup**: Loads environment variables (including Pushover API credentials) from a `.env` file.
+2. **Agent Tools**: Two agent tools are registered:
+   - `record_user_details`: Logs user contact details via Pushover.
+   - `record_unknown_question`: Logs questions the agent can't answer via Pushover.
+3. **Profile Loading**: On startup, the agent reads `me/linkedin.pdf` and `me/summary.txt` for context.
+4. **Agent Instructions**: The agent is guided by a system prompt that encourages professional, relevant, and friendly answers, and routes contact/out-of-scope handling through the proper tools.
+5. **Chat Handling**: All chat history is managed for context, and agent responses are robustly extracted.
+6. **Web Interface**: Gradio presents an easy-to-use chat UI for user interaction.
 
 ---
 
@@ -32,36 +32,33 @@ This project is an AI-powered chatbot for Utkarsh Patel's personal website. Visi
 ### Prerequisites
 
 - Python 3.8+
-- [Pushover account](https://pushover.net/) for notifications
+- [Pushover account](https://pushover.net/) (for notifications)
 - Required Python packages:
   - `python-dotenv`
   - `requests`
   - `pypdf`
   - `gradio`
-  - Agent framework containing `Agent`, `Runner`, and `function_tool`
+  - Custom agent framework (must provide `Agent`, `Runner`, and `function_tool`)
 
 ### Installation
 
 1. **Clone the repository**
-
    ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/UtkPatAI25/My_Career.git
+   cd My_Career
    ```
-
 2. **Install dependencies**
-
    ```bash
    pip install -r requirements.txt
    ```
+3. **Set up your `.env` file**
 
-3. **Prepare your `.env` file**
-
-   Create a `.env` file in the project root with your Pushover credentials:
-
+   Create a `.env` file in the root directory with:
    ```
+
    PUSHOVER_TOKEN=your_pushover_app_token
    PUSHOVER_USER=your_pushover_user_key
+   OPENAI_API_KEY=your_openai_api_key
    ```
 
 4. **Add profile files**
@@ -69,38 +66,17 @@ This project is an AI-powered chatbot for Utkarsh Patel's personal website. Visi
    - Place your LinkedIn PDF at `me/linkedin.pdf`
    - Place your summary text at `me/summary.txt`
 
-### Running the Chatbot
-
-Run the main Python file:
-
-```bash
-python main.py
-```
-
-This will launch a Gradio web interface (by default at `http://localhost:7860`) where users can interact with the chatbot.
-
----
-
-## File Structure
-
-```
-your-repo/
-├── main.py
-├── agents.py
-├── requirements.txt
-├── .env
-└── me/
-    ├── linkedin.pdf
-    └── summary.txt
-```
-
 ---
 
 ## Usage
 
-- Ask about Utkarsh's career, skills, education, projects, or certifications.
-- If you want to get in touch, provide your email or phone—your details will be recorded securely.
-- Any out-of-scope questions will be logged for review, but not answered directly.
+To launch the chatbot, simply run:
+
+```bash
+python app.py
+```
+
+The Gradio interface will be available locally (by default at http://localhost:7860).
 
 ---
 
@@ -111,29 +87,44 @@ your-repo/
 - "What is your education?"
 - "What are your skills?"
 - "What are your projects?"
-- "What are your certifications?"
+- "what are your expertise?"
+- "what are the certifications you have?"
 - "I would like to get in touch with you"
+
+---
+
+## File Structure
+
+```
+My_Career/
+├── app.py
+├── requirements.txt
+├── .env
+└── me/
+    ├── linkedin.pdf
+    └── summary.txt
+```
 
 ---
 
 ## Security & Privacy
 
-- Contact details and unknown questions are sent via Pushover notifications and are not stored elsewhere.
-- Make sure to secure your `.env` file and do not commit it to public repositories.
+- Contact and unknown questions are sent via Pushover notification and are not stored elsewhere.
+- Keep your `.env` file private and do not commit it to public repositories.
 
 ---
 
 ## Customization
 
-- **Agent Behavior**: Modify the system prompt in `Me._build_system_prompt()` to change how the agent responds.
-- **Add New Tools**: Decorate new functions with `@function_tool` to provide more capabilities to the agent.
-- **UI**: Adjust Gradio interface options in the `__main__` block as needed.
+- **Agent Prompt**: Edit the `_build_system_prompt()` method in `app.py` for different behaviors or instructions.
+- **New Tools**: Add new tool functions and decorate them with `@function_tool` to extend agent capabilities.
+- **UI**: Change Gradio settings in the `__main__` block for a customized user experience.
 
 ---
 
 ## License
 
-[MIT](LICENSE) (update as appropriate)
+MIT (or as specified)
 
 ---
 
