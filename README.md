@@ -31,7 +31,7 @@ This project is an AI-powered chatbot for Utkarsh Patel's personal/professional 
 
 ### Prerequisites
 
-- Python 3.8+
+- Python 3.10+
 - [Pushover account](https://pushover.net/) (for notifications)
 - Required Python packages:
   - `python-dotenv`
