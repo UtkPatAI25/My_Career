@@ -2,6 +2,11 @@
 
 This project is an AI-powered chatbot for Utkarsh Patel's personal/professional website. It allows visitors to interactively ask questions about Utkarsh’s career, skills, projects, and more, and can securely collect contact information or log out-of-scope questions via Pushover notifications.
 
+
+![image](https://github.com/user-attachments/assets/4c15fcc6-314d-4175-84c1-b9f7a7afeb72)
+
+
+
 ---
 
 ## Features
